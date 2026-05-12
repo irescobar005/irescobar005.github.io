@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Asesmen Diagnostik – Bijak Hidup di Dunia Digital</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
+
+  :root {
+    --navy:    #1A2E4A;
+    --teal:    #1F7A74;
+    --gold:    #C9A84C;
+    --cream:   #FAF7F2;
+    --muted:   #6B7280;
+    --border:  #D1C9B8;
+    --light-teal: #EBF5F4;
+    --light-gold: #FDF6E3;
+    --page-w: 210mm;
+    --page-h: 297mm;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: #E8E4DD;
+    color: #1A1A1A;
+  }
+
+  /* ── PAGE SHELL ── */
+  .page {
+    width: var(--page-w);
+    min-height: var(--page-h);
+    margin: 12mm auto;
+    background: var(--cream);
+    padding: 18mm 18mm 18mm 18mm;
+    position: relative;
+    box-shadow: 0 4px 32px rgba(0,0,0,.18);
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ── DECORATIVE LEFT STRIPE ── */
+  .page::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--teal) 0%, var(--navy) 60%, var(--gold) 100%);
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: var(--page-h);
+    padding: 20mm 18mm;
+    background: var(--cream);
+    position: relative;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--teal) 0%, var(--navy) 60%, var(--gold) 100%);
+  }
+  .cover-top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 10mm;
+    background: var(--navy);
+  }
+  .cover-bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6mm;
+    background: linear-gradient(90deg, var(--teal), var(--navy));
+  }
+  .cover-tag {
+    font-family: 'Source Serif 4', serif;
+    font-size: 8.5pt;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1.5px solid var(--teal);
+    padding: 3px 12px;
+    border-radius: 2px;
+    margin-bottom: 10mm;
+    margin-top: 8mm;
+  }
+  .cover-icon {
+    font-size: 44pt;
+    margin-bottom: 6mm;
+    filter: drop-shadow(0 2px 6px rgba(31,122,116,.3));
+  }
+  .cover-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26pt;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.18;
+    margin-bottom: 4mm;
+    letter-spacing: -0.3px;
+  }
+  .cover-subtitle {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 10mm;
+    font-style: italic;
+  }
+  .cover-divider {
+    width: 60mm;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 10mm;
+  }
+  .cover-meta {
+    font-size: 9pt;
+    color: var(--muted);
+    line-height: 1.8;
+    letter-spacing: 0.3px;
+  }
+  .cover-meta strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .cover-badge {
+    margin-top: 12mm;
+    background: var(--navy);
+    color: #fff;
+    font-size: 8.5pt;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .cover-watermark {
+    position: absolute;
+    bottom: 20mm;
+    right: 18mm;
+    font-family: 'Playfair Display', serif;
+    font-size: 72pt;
+    font-weight: 900;
+    color: rgba(31,122,116,.06);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6mm;
+    padding-bottom: 3mm;
+    border-bottom: 2px solid var(--navy);
+  }
+  .section-badge {
+    background: var(--navy);
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: 10pt;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.2px;
+  }
+
+  /* ── PAGE HEADER (non-cover) ── */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3mm;
+    margin-bottom: 6mm;
+    margin-left: 2mm;
+  }
+  .page-header-title {
+    font-size: 8pt;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .page-num {
+    font-size: 8pt;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer {
+    position: absolute;
+    bottom: 8mm;
+    left: 18mm;
+    right: 18mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5mm;
+    font-size: 7.5pt;
+    color: var(--muted);
+  }
+  .page-footer-accent {
+    width: 20mm;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+  }
+
+  /* ── IDENTITY BOX ── */
+  .identity-box {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 5mm 6mm;
+    background: var(--light-gold);
+    margin-bottom: 6mm;
+  }
+  .identity-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 3mm;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .identity-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3mm;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5mm;
+  }
+  .field label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .field-line {
+    border-bottom: 1.5px solid var(--navy);
+    height: 5mm;
+  }
+
+  /* ── PETUNJUK ── */
+  .petunjuk {
+    background: var(--light-teal);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 4mm 5mm;
+    margin-bottom: 6mm;
+  }
+  .petunjuk h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 2.5mm;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .petunjuk ol {
+    padding-left: 4mm;
+    list-style: none;
+    counter-reset: step;
+  }
+  .petunjuk ol li {
+    counter-increment: step;
+    font-size: 8.5pt;
+    line-height: 1.6;
+    color: #2D3748;
+    padding-left: 5mm;
+    position: relative;
+    margin-bottom: 1mm;
+  }
+  .petunjuk ol li::before {
+    content: counter(step) ".";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: var(--teal);
+    font-size: 8.5pt;
+  }
+
+  /* ── SUB-SECTION LABEL ── */
+  .sub-label {
+    background: var(--teal);
+    color: #fff;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2.5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 3mm;
+    margin-top: 4mm;
+  }
+
+  /* ── LEMBAR PENILAIAN TABLE ── */
+  .penilaian-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.3pt;
+    margin-bottom: 4mm;
+  }
+  .penilaian-table thead tr {
+    background: var(--navy);
+    color: #fff;
+  }
+  .penilaian-table thead th {
+    padding: 3mm 3.5mm;
+    text-align: left;
+    font-weight: 600;
+    font-family: 'Source Serif 4', serif;
+    letter-spacing: 0.3px;
+    font-size: 8pt;
+  }
+  .penilaian-table thead th:nth-child(1) { width: 7%; text-align: center; }
+  .penilaian-table thead th:nth-child(2) { width: 73%; }
+  .penilaian-table thead th:nth-child(3),
+  .penilaian-table thead th:nth-child(4) { width: 10%; text-align: center; }
+
+  .penilaian-table tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+  .penilaian-table tbody tr:nth-child(even) {
+    background: rgba(31,122,116,.04);
+  }
+  .penilaian-table tbody tr:hover {
+    background: var(--light-teal);
+  }
+  .penilaian-table td {
+    padding: 2.8mm 3.5mm;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .penilaian-table td:nth-child(1) { text-align: center; font-weight: 700; color: var(--navy); }
+  .penilaian-table td:nth-child(3),
+  .penilaian-table td:nth-child(4) {
+    text-align: center;
+    font-size: 11pt;
+  }
+
+  .group-row td {
+    background: rgba(201,168,76,.12) !important;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 8pt;
+    letter-spacing: 0.5px;
+    padding: 2mm 3.5mm;
+    border-top: 1.5px solid var(--gold);
+  }
+
+  /* ── RUBRIK TABLE ── */
+  .rubrik-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin-bottom: 5mm;
+  }
+  .rubrik-table thead tr {
+    background: var(--navy);
+    color: #fff;
+  }
+  .rubrik-table thead th {
+    padding: 3mm 3.5mm;
+    font-weight: 600;
+    font-size: 8pt;
+    text-align: left;
+    letter-spacing: 0.3px;
+  }
+  .rubrik-table thead th:nth-child(1) { width: 15%; }
+  .rubrik-table thead th:nth-child(2) { width: 25%; }
+  .rubrik-table thead th:nth-child(3) { width: 30%; }
+  .rubrik-table thead th:nth-child(4) { width: 30%; }
+  .rubrik-table tbody tr { border-bottom: 1px solid var(--border); }
+  .rubrik-table tbody tr:nth-child(even) { background: rgba(31,122,116,.04); }
+  .rubrik-table td {
+    padding: 2.8mm 3.5mm;
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  .rubrik-table td:nth-child(3) { color: #166534; }
+  .rubrik-table td:nth-child(4) { color: #9A3412; }
+  .rubrik-table .aspect-cell {
+    font-weight: 700;
+    color: var(--navy);
+    background: rgba(201,168,76,.1);
+    border-right: 2px solid var(--gold);
+  }
+
+  /* ── INTERPRETASI TABLE ── */
+  .interp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.3pt;
+    margin-bottom: 5mm;
+  }
+  .interp-table thead tr { background: var(--navy); color: #fff; }
+  .interp-table thead th {
+    padding: 3mm 4mm;
+    font-weight: 600;
+    font-size: 8pt;
+    text-align: left;
+  }
+  .interp-table thead th:nth-child(1) { width: 18%; text-align: center; }
+  .interp-table thead th:nth-child(2) { width: 17%; }
+  .interp-table thead th:nth-child(3) { width: 35%; }
+  .interp-table thead th:nth-child(4) { width: 30%; }
+  .interp-table tbody tr { border-bottom: 1px solid var(--border); }
+  .interp-table td {
+    padding: 3mm 4mm;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .interp-table td:nth-child(1) { text-align: center; }
+
+  .badge-sangat-siap  { background:#DCFCE7; color:#166534; padding:2px 8px; border-radius:12px; font-weight:700; font-size:7.5pt; white-space:nowrap; }
+  .badge-cukup-siap   { background:#FEF9C3; color:#854D0E; padding:2px 8px; border-radius:12px; font-weight:700; font-size:7.5pt; white-space:nowrap; }
+  .badge-bimbingan    { background:#FFEDD5; color:#9A3412; padding:2px 8px; border-radius:12px; font-weight:700; font-size:7.5pt; white-space:nowrap; }
+  .badge-intensif     { background:#FEE2E2; color:#991B1B; padding:2px 8px; border-radius:12px; font-weight:700; font-size:7.5pt; white-space:nowrap; }
+  .score-chip {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 3px;
+    padding: 1px 7px;
+    font-weight: 700;
+    font-size: 8pt;
+    display: inline-block;
+  }
+
+  /* ── TINDAK LANJUT ── */
+  .tindak-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin-bottom: 5mm;
+  }
+  .tindak-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .tindak-card-header {
+    padding: 2.5mm 4mm;
+    font-weight: 700;
+    font-size: 8pt;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .tindak-card-body {
+    padding: 3mm 4mm;
+    font-size: 8pt;
+    line-height: 1.6;
+    color: #2D3748;
+  }
+  .c1 .tindak-card-header { background: #166534; }
+  .c1 { border-color: #166534; }
+  .c2 .tindak-card-header { background: #854D0E; }
+  .c2 { border-color: #854D0E; }
+  .c3 .tindak-card-header { background: #9A3412; }
+  .c3 { border-color: #9A3412; }
+  .c4 .tindak-card-header { background: #991B1B; }
+  .c4 { border-color: #991B1B; }
+
+  /* ── CATATAN GURU ── */
+  .catatan-section {
+    margin-top: 4mm;
+  }
+  .catatan-item {
+    margin-bottom: 5mm;
+  }
+  .catatan-label {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 2mm;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .catatan-label::before {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: var(--gold);
+    display: inline-block;
+  }
+  .catatan-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 5mm;
+  }
+  .catatan-line {
+    border-bottom: 1px dashed var(--border);
+    height: 6mm;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HALAMAN 1 – COVER
+═══════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-top-bar"></div>
+  <div class="cover-watermark">✦</div>
+
+  <div class="cover-tag">Modul Pembelajaran · Informatika</div>
+
+  <div class="cover-icon">🌐</div>
+
+  <div class="cover-title">Bijak Hidup<br>di Dunia Digital</div>
+  <div class="cover-subtitle">Asesmen Diagnostik Peserta Didik</div>
+
+  <div class="cover-divider"></div>
+
+  <div class="cover-meta">
+    <strong>Mata Pelajaran</strong> &nbsp;·&nbsp; Informatika / Pendidikan Pancasila<br>
+    <strong>Jenjang</strong> &nbsp;·&nbsp; SMP / MTs<br>
+    <strong>Alokasi Waktu</strong> &nbsp;·&nbsp; ±15 Menit<br>
+    <strong>Sifat</strong> &nbsp;·&nbsp; Asesmen Awal (Pra-Pembelajaran)
+  </div>
+
+  <div class="cover-badge">📋 Lembar Penilaian Diri Peserta Didik</div>
+
+  <div class="cover-bottom-bar"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     HALAMAN 2 – INSTRUMEN: IDENTITAS & PETUNJUK & BAGIAN A–B
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-title">Bijak Hidup di Dunia Digital · Asesmen Diagnostik</span>
+    <span class="page-num">Halaman 2</span>
+  </div>
+
+  <!-- Bagian Judul Instrumen -->
+  <div class="section-header">
+    <span class="section-badge">A</span>
+    <span class="section-title">Instrumen Asesmen Diagnostik — Lembar Penilaian Diri</span>
+  </div>
+
+  <!-- Identitas -->
+  <div class="identity-box">
+    <h3>📌 Identitas Peserta Didik</h3>
+    <div class="identity-fields">
+      <div class="field">
+        <label>Nama Peserta Didik</label>
+        <div class="field-line"></div>
+      </div>
+      <div class="field">
+        <label>Kelas</label>
+        <div class="field-line"></div>
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Petunjuk -->
+  <div class="petunjuk">
+    <h3>📖 Petunjuk Pengisian</h3>
+    <ol>
+      <li>Bacalah setiap pernyataan dengan teliti.</li>
+      <li>Berikan tanda ceklis (✓) pada kolom <strong>Ya</strong> atau <strong>Tidak</strong> sesuai dengan pengalaman dan pemahaman kalian.</li>
+      <li>Jawablah dengan jujur karena <strong>tidak ada jawaban benar atau salah</strong> pada asesmen ini.</li>
+      <li>Hasil asesmen digunakan guru untuk mengetahui pemahaman awal kalian sebelum mempelajari materi <em>Bijak Hidup di Dunia Digital</em>.</li>
+    </ol>
+  </div>
+
+  <!-- BAGIAN A -->
+  <div class="sub-label">A. Pemahaman Awal tentang Dunia Digital</div>
+  <table class="penilaian-table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Pertanyaan</th>
+        <th>Ya</th>
+        <th>Tidak</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Saya pernah mendengar istilah dunia digital.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Saya memahami bahwa dunia digital berkaitan dengan penggunaan internet, media sosial, aplikasi pesan, game online, dan platform digital lainnya.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Saya mengetahui bahwa teknologi digital dapat memberikan manfaat dalam kehidupan sehari-hari.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Saya mengetahui bahwa penggunaan internet juga dapat menimbulkan risiko atau dampak negatif.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Saya dapat menyebutkan contoh dampak positif dan negatif dari penggunaan teknologi digital.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- BAGIAN B -->
+  <div class="sub-label">B. Pengalaman Menggunakan Teknologi Digital</div>
+  <table class="penilaian-table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Pertanyaan</th>
+        <th>Ya</th>
+        <th>Tidak</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>6</td>
+        <td>Saya menggunakan HP, internet, atau perangkat digital hampir setiap hari.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Saya pernah menggunakan internet untuk mencari informasi pelajaran.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Saya pernah menggunakan media sosial, aplikasi chat, atau game online untuk berkomunikasi dengan teman.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Saya pernah menerima atau melihat informasi di internet yang belum jelas kebenarannya.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Saya pernah mengecek kebenaran informasi sebelum membagikannya kepada orang lain.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <div class="page-footer-accent"></div>
+    <span>Modul Asesmen Diagnostik · Bijak Hidup di Dunia Digital</span>
+    <span>2 / 5</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     HALAMAN 3 – INSTRUMEN: BAGIAN C & D
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-title">Bijak Hidup di Dunia Digital · Asesmen Diagnostik</span>
+    <span class="page-num">Halaman 3</span>
+  </div>
+
+  <!-- BAGIAN C -->
+  <div class="sub-label" style="margin-top:0">C. Keamanan dan Privasi Digital</div>
+  <table class="penilaian-table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Pertanyaan</th>
+        <th>Ya</th>
+        <th>Tidak</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>11</td>
+        <td>Saya memahami bahwa kata sandi, alamat rumah, nomor HP, PIN, dan identitas pribadi termasuk informasi privat.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Saya tidak membagikan kata sandi akun atau pola HP kepada teman.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>Saya mengetahui bahwa membagikan foto, lokasi, atau data pribadi secara sembarangan dapat berbahaya.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>Saya pernah mengatur privasi akun media sosial atau membatasi informasi pribadi yang saya bagikan.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>Saya mengetahui bahwa jejak digital dapat tersimpan dan berdampak pada diri sendiri maupun orang lain.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- BAGIAN D -->
+  <div class="sub-label">D. Etika Digital dan Ruang Publik Virtual</div>
+  <table class="penilaian-table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Pertanyaan</th>
+        <th>Ya</th>
+        <th>Tidak</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>16</td>
+        <td>Saya memahami bahwa media sosial, grup chat, kolom komentar, dan forum online termasuk ruang publik virtual.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>Saya berusaha menggunakan bahasa yang sopan saat berkomentar atau mengirim pesan di internet.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>Saya memahami pentingnya menghormati privasi orang lain di dunia digital.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>Saya mengetahui bahwa informasi harus disaring terlebih dahulu sebelum dibagikan.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>Saya tertarik mempelajari cara menjadi warga digital yang bijak, aman, dan bertanggung jawab.</td>
+        <td>☐</td><td>☐</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- REKAPITULASI SKOR -->
+  <div class="section-header" style="margin-top:6mm">
+    <span class="section-badge" style="background:var(--teal)">📊</span>
+    <span class="section-title">Rekapitulasi Jawaban</span>
+  </div>
+  <table class="penilaian-table" style="font-size:8.5pt;">
+    <thead>
+      <tr>
+        <th style="width:50%">Bagian</th>
+        <th style="width:25%;text-align:center;">Jumlah "Ya"</th>
+        <th style="width:25%;text-align:center;">Jumlah "Tidak"</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>A. Pemahaman Awal tentang Dunia Digital</td><td style="text-align:center;">___</td><td style="text-align:center;">___</td></tr>
+      <tr><td>B. Pengalaman Menggunakan Teknologi Digital</td><td style="text-align:center;">___</td><td style="text-align:center;">___</td></tr>
+      <tr><td>C. Keamanan dan Privasi Digital</td><td style="text-align:center;">___</td><td style="text-align:center;">___</td></tr>
+      <tr><td>D. Etika Digital dan Ruang Publik Virtual</td><td style="text-align:center;">___</td><td style="text-align:center;">___</td></tr>
+      <tr class="group-row">
+        <td style="font-weight:800;">TOTAL JAWABAN "YA"</td>
+        <td colspan="2" style="text-align:center;font-size:10pt;color:var(--teal);">___ / 20</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <div class="page-footer-accent"></div>
+    <span>Modul Asesmen Diagnostik · Bijak Hidup di Dunia Digital</span>
+    <span>3 / 5</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     HALAMAN 4 – RUBRIK & PEDOMAN INTERPRETASI
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-title">Bijak Hidup di Dunia Digital · Rubrik &amp; Interpretasi</span>
+    <span class="page-num">Halaman 4</span>
+  </div>
+
+  <!-- RUBRIK -->
+  <div class="section-header">
+    <span class="section-badge">B</span>
+    <span class="section-title">Rubrik Penilaian Asesmen Diagnostik</span>
+  </div>
+
+  <table class="rubrik-table">
+    <thead>
+      <tr>
+        <th>Aspek</th>
+        <th>Indikator</th>
+        <th>✔ Deskripsi Jawaban YA</th>
+        <th>✘ Deskripsi Jawaban TIDAK</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="aspect-cell" rowspan="3">Pemahaman Awal tentang Dunia Digital</td>
+        <td>Pengertian dunia digital</td>
+        <td>Sudah memahami bahwa dunia digital berkaitan dengan internet, media sosial, aplikasi digital, dan aktivitas daring.</td>
+        <td>Belum memahami makna dunia digital; masih menganggap teknologi hanya sebagai alat hiburan.</td>
+      </tr>
+      <tr>
+        <td>Dampak positif teknologi</td>
+        <td>Mampu mengenali manfaat seperti kemudahan komunikasi, pencarian informasi, belajar, dan kolaborasi.</td>
+        <td>Belum mampu menyebutkan manfaat teknologi digital secara tepat.</td>
+      </tr>
+      <tr>
+        <td>Dampak negatif teknologi</td>
+        <td>Menyadari risiko seperti kecanduan gawai, hoaks, cyberbullying, konten negatif, dan kebocoran data.</td>
+        <td>Belum menyadari bahwa penggunaan teknologi digital dapat menimbulkan dampak negatif.</td>
+      </tr>
+      <tr>
+        <td class="aspect-cell" rowspan="3">Pengalaman Menggunakan Teknologi Digital</td>
+        <td>Aktivitas digital sehari-hari</td>
+        <td>Memiliki pengalaman menggunakan HP, internet, media sosial, chat, game online, atau platform digital lain.</td>
+        <td>Belum banyak berpengalaman menggunakan teknologi digital; memerlukan contoh lebih konkret.</td>
+      </tr>
+      <tr>
+        <td>Pemanfaatan internet untuk belajar</td>
+        <td>Pernah menggunakan internet untuk mencari materi, menonton video pembelajaran, atau mengerjakan tugas.</td>
+        <td>Belum terbiasa menggunakan internet sebagai media belajar.</td>
+      </tr>
+      <tr>
+        <td>Literasi informasi</td>
+        <td>Pernah mengecek kebenaran informasi sebelum membagikannya kepada orang lain.</td>
+        <td>Masih cenderung menerima atau membagikan informasi tanpa memeriksa kebenarannya.</td>
+      </tr>
+      <tr>
+        <td class="aspect-cell" rowspan="3">Keamanan dan Privasi Digital</td>
+        <td>Pemahaman informasi privat</td>
+        <td>Memahami bahwa alamat rumah, nomor HP, kata sandi, PIN, kartu identitas, dan lokasi pribadi harus dijaga.</td>
+        <td>Belum memahami perbedaan antara informasi publik dan informasi privat.</td>
+      </tr>
+      <tr>
+        <td>Perlindungan data pribadi</td>
+        <td>Sudah berusaha menjaga data pribadi dengan tidak membagikan password, pola HP, atau info penting lain.</td>
+        <td>Masih berisiko membagikan data pribadi secara sembarangan.</td>
+      </tr>
+      <tr>
+        <td>Kesadaran jejak digital</td>
+        <td>Menyadari bahwa unggahan, komentar, foto, atau informasi yang dibagikan di internet menjadi jejak digital.</td>
+        <td>Belum memahami bahwa aktivitas di internet dapat tersimpan dan berdampak di masa depan.</td>
+      </tr>
+      <tr>
+        <td class="aspect-cell" rowspan="3">Etika Digital dan Ruang Publik Virtual</td>
+        <td>Pemahaman ruang publik virtual</td>
+        <td>Memahami bahwa media sosial, grup chat, kolom komentar, dan forum online adalah ruang publik virtual.</td>
+        <td>Belum memahami bahwa aktivitas di media digital memiliki aturan dan tanggung jawab sosial.</td>
+      </tr>
+      <tr>
+        <td>Kesantunan berkomunikasi digital</td>
+        <td>Berusaha menggunakan bahasa sopan, tidak mengejek, tidak menyebarkan hoaks, dan menghargai orang lain.</td>
+        <td>Masih perlu dibimbing agar mampu berkomunikasi secara santun di ruang digital.</td>
+      </tr>
+      <tr>
+        <td>Minat belajar warga digital</td>
+        <td>Menunjukkan ketertarikan untuk mempelajari cara menggunakan internet dengan aman, santun, dan bertanggung jawab.</td>
+        <td>Belum menunjukkan ketertarikan atau belum memahami pentingnya menjadi warga digital yang bijak.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- INTERPRETASI -->
+  <div class="section-header" style="margin-top:5mm">
+    <span class="section-badge">C</span>
+    <span class="section-title">Pedoman Interpretasi Hasil Asesmen Diagnostik</span>
+  </div>
+
+  <table class="interp-table">
+    <thead>
+      <tr>
+        <th>Skor "Ya"</th>
+        <th>Kategori</th>
+        <th>Interpretasi</th>
+        <th>Tindak Lanjut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="score-chip">16 – 20</span></td>
+        <td><span class="badge-sangat-siap">Sangat Siap</span></td>
+        <td>Peserta didik memiliki pemahaman awal yang baik tentang dunia digital, etika digital, dan keamanan diri.</td>
+        <td>Diberi tantangan berupa studi kasus atau tugas pengayaan.</td>
+      </tr>
+      <tr>
+        <td><span class="score-chip">11 – 15</span></td>
+        <td><span class="badge-cukup-siap">Cukup Siap</span></td>
+        <td>Sudah memiliki pengalaman digital, tetapi masih perlu penguatan pada aspek privasi, hoaks, dan etika digital.</td>
+        <td>Guru memberikan penguatan konsep melalui contoh nyata dan diskusi kelompok.</td>
+      </tr>
+      <tr>
+        <td><span class="score-chip">6 – 10</span></td>
+        <td><span class="badge-bimbingan">Perlu Bimbingan</span></td>
+        <td>Memiliki pengalaman menggunakan teknologi, tetapi pemahamannya tentang risiko digital masih terbatas.</td>
+        <td>Guru memberikan pembelajaran ulang secara bertahap dengan contoh konkret.</td>
+      </tr>
+      <tr>
+        <td><span class="score-chip">0 – 5</span></td>
+        <td><span class="badge-intensif">Perlu Pendampingan Intensif</span></td>
+        <td>Belum memahami konsep dasar dunia digital, privasi, dan etika digital.</td>
+        <td>Guru memberikan pendampingan khusus, tanya jawab sederhana, dan latihan klasifikasi informasi publik/privat.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <div class="page-footer-accent"></div>
+    <span>Modul Asesmen Diagnostik · Bijak Hidup di Dunia Digital</span>
+    <span>4 / 5</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     HALAMAN 5 – TINDAK LANJUT & CATATAN GURU
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-title">Bijak Hidup di Dunia Digital · Tindak Lanjut &amp; Catatan Guru</span>
+    <span class="page-num">Halaman 5</span>
+  </div>
+
+  <!-- TINDAK LANJUT -->
+  <div class="section-header">
+    <span class="section-badge">D</span>
+    <span class="section-title">Tindak Lanjut Asesmen Diagnostik</span>
+  </div>
+
+  <p style="font-size:8.5pt;color:var(--muted);margin-bottom:4mm;line-height:1.6;">Berdasarkan hasil asesmen diagnostik, guru dapat melakukan tindak lanjut sebagai berikut:</p>
+
+  <div class="tindak-grid">
+    <div class="tindak-card c1">
+      <div class="tindak-card-header">
+        ✅ Sangat Siap &nbsp;(Skor 16–20)
+      </div>
+      <div class="tindak-card-body">
+        Diberikan <strong>tugas pengayaan</strong> berupa analisis kasus hoaks, membuat poster <em>"Saring Sebelum Sharing"</em>, atau menjadi <strong>tutor sebaya</strong> dalam diskusi kelompok.
+      </div>
+    </div>
+    <div class="tindak-card c2">
+      <div class="tindak-card-header">
+        🟡 Cukup Siap &nbsp;(Skor 11–15)
+      </div>
+      <div class="tindak-card-body">
+        Diberikan <strong>penguatan</strong> melalui diskusi, tanya jawab, dan latihan membedakan informasi publik dan privat.
+      </div>
+    </div>
+    <div class="tindak-card c3">
+      <div class="tindak-card-header">
+        🟠 Perlu Bimbingan &nbsp;(Skor 6–10)
+      </div>
+      <div class="tindak-card-body">
+        Diberikan <strong>contoh konkret</strong> tentang dampak positif dan negatif teknologi digital, serta latihan sederhana mengecek informasi sebelum membagikannya.
+      </div>
+    </div>
+    <div class="tindak-card c4">
+      <div class="tindak-card-header">
+        🔴 Pendampingan Intensif &nbsp;(Skor 0–5)
+      </div>
+      <div class="tindak-card-body">
+        Diberikan <strong>bimbingan lebih dekat</strong> melalui pertanyaan sederhana, contoh kehidupan sehari-hari, dan pendampingan saat mengerjakan LKPD.
+      </div>
+    </div>
+  </div>
+
+  <!-- CATATAN GURU -->
+  <div class="section-header" style="margin-top:5mm">
+    <span class="section-badge">E</span>
+    <span class="section-title">Catatan Guru</span>
+  </div>
+
+  <div class="catatan-section">
+    <div class="catatan-item">
+      <div class="catatan-label">Hasil Umum Asesmen Diagnostik</div>
+      <div class="catatan-lines">
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+      </div>
+    </div>
+
+    <div class="catatan-item">
+      <div class="catatan-label">Peserta Didik yang Memerlukan Bimbingan</div>
+      <div class="catatan-lines">
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+      </div>
+    </div>
+
+    <div class="catatan-item">
+      <div class="catatan-label">Rencana Tindak Lanjut</div>
+      <div class="catatan-lines">
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+        <div class="catatan-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tanda tangan -->
+  <div style="margin-top:6mm;display:flex;justify-content:flex-end;">
+    <div style="text-align:center;font-size:8.5pt;color:var(--muted);">
+      <div style="margin-bottom:1mm;">..................., .......................................</div>
+      <div style="margin-bottom:16mm;">Guru Kelas / Mata Pelajaran</div>
+      <div style="border-top:1.5px solid var(--navy);width:60mm;margin:0 auto;padding-top:2mm;font-weight:600;color:var(--navy);">
+        ( .................................................. )
+      </div>
+      <div style="margin-top:1mm;">NIP. ............................................</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-accent"></div>
+    <span>Modul Asesmen Diagnostik · Bijak Hidup di Dunia Digital</span>
+    <span>5 / 5</span>
+  </div>
+</div>
+
+</body>
+</html>
