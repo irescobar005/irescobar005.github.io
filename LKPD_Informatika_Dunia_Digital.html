@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKPD Informatika – Bijak Hidup di Dunia Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:      #1a6fbf;
+    --blue-mid:  #2389e0;
+    --blue-lt:   #dbeeff;
+    --teal:      #0a9e8a;
+    --teal-lt:   #d4f5f0;
+    --orange:    #e8700a;
+    --orange-lt: #fff0e0;
+    --purple:    #6a3fc8;
+    --purple-lt: #ede6ff;
+    --green:     #1e9e4f;
+    --green-lt:  #d8f5e5;
+    --yellow:    #f5c800;
+    --yellow-lt: #fffbe0;
+    --gray:      #4a5568;
+    --gray-lt:   #f4f6fa;
+    --white:     #ffffff;
+    --border:    #c9d8e8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    font-size: 9.5pt;
+    color: #222;
+    background: #cdd8e8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  /* ── A4 page ─────────────────────────────── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,.18);
+    padding: 12mm 14mm 12mm 14mm;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* decorative circles */
+  .page::before, .page::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: .06;
+  }
+  .page::before {
+    width: 160px; height: 160px;
+    background: var(--blue);
+    top: -60px; right: -60px;
+  }
+  .page::after {
+    width: 120px; height: 120px;
+    background: var(--teal);
+    bottom: -50px; left: -50px;
+  }
+
+  /* ── Header ──────────────────────────────── */
+  .header {
+    display: grid;
+    grid-template-columns: 62px 1fr 62px;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--blue) 0%, #0e4d9e 100%);
+    border-radius: 14px;
+    padding: 10px 14px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .header-icon {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,.18);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .header-center { text-align: center; }
+  .header-center .label {
+    font-size: 7pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: .82;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .header-center h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15pt;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .header-center .sub {
+    font-size: 8pt;
+    opacity: .88;
+    font-weight: 500;
+    margin-top: 3px;
+  }
+  .header-badge {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,.18);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    font-size: 7pt;
+    font-weight: 700;
+    text-align: center;
+    gap: 1px;
+    opacity: .9;
+  }
+  .header-badge span { font-size: 18px; }
+
+  /* ── Identity strip ───────────────────────── */
+  .identity {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 9px;
+  }
+  .id-box {
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    padding: 6px 10px;
+    background: var(--gray-lt);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .id-box .id-label {
+    font-size: 7pt;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+  }
+  .id-box .id-line {
+    border-bottom: 1.5px solid var(--border);
+    height: 14px;
+    width: 100%;
+  }
+  .id-box.members { grid-column: 1 / -1; }
+  .members-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px 10px;
+    margin-top: 3px;
+  }
+  .member-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8pt;
+  }
+  .member-no {
+    width: 17px; height: 17px;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7pt;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .member-line {
+    border-bottom: 1.2px solid var(--border);
+    flex: 1;
+    height: 13px;
+  }
+  .id-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  /* ── Section container ────────────────────── */
+  .section {
+    margin-bottom: 8px;
+    border-radius: 11px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 11px;
+    font-weight: 800;
+    font-size: 9.5pt;
+    font-family: 'Poppins', sans-serif;
+  }
+  .section-head .sh-icon {
+    width: 22px; height: 22px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .section-body { padding: 8px 11px; background: #fff; }
+
+  /* colour themes per section */
+  .sec-blue   .section-head { background: var(--blue);   color: #fff; }
+  .sec-blue   .section-head .sh-icon { background: rgba(255,255,255,.22); }
+  .sec-teal   .section-head { background: var(--teal);   color: #fff; }
+  .sec-teal   .section-head .sh-icon { background: rgba(255,255,255,.22); }
+  .sec-orange .section-head { background: var(--orange); color: #fff; }
+  .sec-orange .section-head .sh-icon { background: rgba(255,255,255,.22); }
+  .sec-purple .section-head { background: var(--purple); color: #fff; }
+  .sec-purple .section-head .sh-icon { background: rgba(255,255,255,.22); }
+  .sec-green  .section-head { background: var(--green);  color: #fff; }
+  .sec-green  .section-head .sh-icon { background: rgba(255,255,255,.22); }
+  .sec-yellow .section-head { background: #d4a700;       color: #fff; }
+  .sec-yellow .section-head .sh-icon { background: rgba(255,255,255,.22); }
+
+  /* ── Tujuan list ──────────────────────────── */
+  .tujuan-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 10px;
+  }
+  .tujuan-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 4px 6px;
+    background: var(--blue-lt);
+    border-radius: 7px;
+    font-size: 8.5pt;
+  }
+  .tujuan-item .t-num {
+    width: 18px; height: 18px;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7pt; font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  /* ── Petunjuk ─────────────────────────────── */
+  .petunjuk-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .petunjuk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 4px 7px;
+    background: var(--teal-lt);
+    border-radius: 7px;
+    font-size: 8.5pt;
+  }
+  .petunjuk-item .p-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 0px;
+  }
+
+  /* ── Materi ───────────────────────────────── */
+  .materi-text {
+    font-size: 8.5pt;
+    line-height: 1.65;
+    color: #333;
+    text-align: justify;
+  }
+  .materi-highlight {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .mh-card {
+    flex: 1;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 8pt;
+  }
+  .mh-card .mh-title {
+    font-weight: 800;
+    font-size: 8pt;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .mh-pos { background: var(--green-lt); }
+  .mh-pos .mh-title { color: var(--green); }
+  .mh-neg { background: #ffe5e5; }
+  .mh-neg .mh-title { color: #c0392b; }
+  .mh-card ul { padding-left: 12px; }
+  .mh-card li { margin-bottom: 2px; }
+
+  /* ── Kasus ────────────────────────────────── */
+  .kasus-box {
+    background: linear-gradient(135deg, #fff8ec, #fff3dd);
+    border: 2px solid var(--orange);
+    border-radius: 10px;
+    padding: 9px 11px;
+  }
+  .kasus-title {
+    font-weight: 800;
+    font-size: 9pt;
+    color: var(--orange);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .kasus-text {
+    font-size: 8.5pt;
+    line-height: 1.65;
+    text-align: justify;
+  }
+  .kasus-character {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    padding: 5px 8px;
+    background: rgba(232,112,10,.1);
+    border-radius: 7px;
+    font-size: 8pt;
+    font-weight: 600;
+  }
+
+  /* ── Questions ────────────────────────────── */
+  .question-list { display: flex; flex-direction: column; gap: 7px; }
+  .q-item {
+    border-radius: 9px;
+    overflow: hidden;
+    border: 1.2px solid var(--border);
+  }
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 6px 9px;
+    font-size: 8.5pt;
+    font-weight: 700;
+  }
+  .q-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8pt; font-weight: 800;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .q-answer {
+    padding: 5px 9px 6px 9px;
+    background: #fff;
+  }
+  .answer-label {
+    font-size: 7pt;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    margin-bottom: 3px;
+  }
+  .answer-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .answer-line {
+    border-bottom: 1.2px dashed var(--border);
+    height: 14px;
+    width: 100%;
+  }
+
+  /* q colour variants */
+  .q-v1 .q-header { background: #e8f2ff; } .q-v1 .q-num { background: var(--blue); }
+  .q-v2 .q-header { background: #fef3e5; } .q-v2 .q-num { background: var(--orange); }
+  .q-v3 .q-header { background: #e7faf6; } .q-v3 .q-num { background: var(--teal); }
+  .q-v4 .q-header { background: #f0ebff; } .q-v4 .q-num { background: var(--purple); }
+  .q-v5 .q-header { background: #e8f8ee; } .q-v5 .q-num { background: var(--green); }
+
+  /* ── Refleksi ─────────────────────────────── */
+  .refleksi-list { display: flex; flex-direction: column; gap: 7px; }
+  .r-item {
+    background: var(--yellow-lt);
+    border: 1.2px solid #e8d000;
+    border-radius: 9px;
+    padding: 7px 10px;
+  }
+  .r-q {
+    font-weight: 700;
+    font-size: 8.5pt;
+    color: #7a5c00;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .r-num {
+    width: 18px; height: 18px;
+    background: #c8a000;
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7pt; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .r-lines { display: flex; flex-direction: column; gap: 5px; }
+  .r-line { border-bottom: 1.2px dashed #d4b800; height: 14px; }
+
+  /* ── Footer ───────────────────────────────── */
+  .footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--teal) 100%);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 7.5pt;
+    font-weight: 600;
+  }
+  .footer-left { opacity: .88; }
+  .footer-right { opacity: .88; }
+  .page-indicator {
+    background: rgba(255,255,255,.2);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 7pt;
+  }
+
+  /* ── Print ────────────────────────────────── */
+  @media print {
+    body { background: #fff; padding: 0; gap: 0; }
+    .page {
+      box-shadow: none;
+      width: 210mm;
+      min-height: 297mm;
+      page-break-after: always;
+      margin: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ PAGE 1 ═══════════════ -->
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">💻</div>
+    <div class="header-center">
+      <div class="label">Lembar Kerja Peserta Didik</div>
+      <h1>Bijak Hidup di Dunia Digital</h1>
+      <div class="sub">Mata Pelajaran Informatika &nbsp;·&nbsp; Aktivitas Kelompok</div>
+    </div>
+    <div class="header-badge">
+      <span>🌐</span>
+      LKPD
+    </div>
+  </div>
+
+  <!-- Identity: Nama Kelompok -->
+  <div class="id-box" style="margin-bottom:6px; border:1.5px solid var(--border); border-radius:9px; padding:7px 10px; background:var(--gray-lt);">
+    <div class="id-label">Nama Kelompok</div>
+    <div class="id-line" style="border-bottom:1.5px solid var(--border);height:16px;width:100%;"></div>
+  </div>
+
+  <!-- Anggota -->
+  <div class="id-box" style="margin-bottom:6px; border:1.5px solid var(--border); border-radius:9px; padding:7px 10px; background:var(--gray-lt);">
+    <div class="id-label">Anggota Kelompok</div>
+    <div class="members-grid">
+      <div class="member-item"><div class="member-no">1</div><div class="member-line"></div></div>
+      <div class="member-item"><div class="member-no">2</div><div class="member-line"></div></div>
+      <div class="member-item"><div class="member-no">3</div><div class="member-line"></div></div>
+      <div class="member-item"><div class="member-no">4</div><div class="member-line"></div></div>
+      <div class="member-item"><div class="member-no">5</div><div class="member-line"></div></div>
+      <div class="member-item"><div class="member-no">6</div><div class="member-line"></div></div>
+    </div>
+  </div>
+
+  <!-- Kelas & Tanggal -->
+  <div class="id-row2" style="margin-bottom:10px;">
+    <div class="id-box">
+      <div class="id-label">Kelas</div>
+      <div class="id-line"></div>
+    </div>
+    <div class="id-box">
+      <div class="id-label">Hari / Tanggal</div>
+      <div class="id-line"></div>
+    </div>
+  </div>
+
+  <!-- A. Tujuan Pembelajaran -->
+  <div class="section sec-blue" style="margin-bottom:8px;">
+    <div class="section-head">
+      <div class="sh-icon">🎯</div>
+      A. Tujuan Pembelajaran
+    </div>
+    <div class="section-body">
+      <div class="tujuan-list">
+        <div class="tujuan-item"><div class="t-num">1</div><span>Menjelaskan pengertian dunia digital.</span></div>
+        <div class="tujuan-item"><div class="t-num">2</div><span>Menyebutkan dampak positif dan negatif teknologi digital.</span></div>
+        <div class="tujuan-item"><div class="t-num">3</div><span>Membedakan informasi publik dan privat.</span></div>
+        <div class="tujuan-item"><div class="t-num">4</div><span>Menjelaskan pentingnya etika digital.</span></div>
+        <div class="tujuan-item"><div class="t-num">5</div><span>Menganalisis kasus penyebaran informasi hoaks.</span></div>
+        <div class="tujuan-item"><div class="t-num">6</div><span>Menyusun solusi penggunaan internet yang bijak.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. Petunjuk Kerja -->
+  <div class="section sec-teal" style="margin-bottom:8px;">
+    <div class="section-head">
+      <div class="sh-icon">📋</div>
+      B. Petunjuk Kerja
+    </div>
+    <div class="section-body">
+      <div class="petunjuk-list">
+        <div class="petunjuk-item"><span class="p-icon">📖</span><span>Bacalah kasus dengan cermat.</span></div>
+        <div class="petunjuk-item"><span class="p-icon">💬</span><span>Diskusikan jawaban bersama anggota kelompok.</span></div>
+        <div class="petunjuk-item"><span class="p-icon">✏️</span><span>Tuliskan jawaban dengan bahasa yang jelas dan santun.</span></div>
+        <div class="petunjuk-item"><span class="p-icon">🎤</span><span>Presentasikan hasil diskusi kelompok di depan kelas.</span></div>
+        <div class="petunjuk-item"><span class="p-icon">👂</span><span>Dengarkan presentasi kelompok lain dengan tertib.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. Materi Singkat -->
+  <div class="section sec-purple" style="margin-bottom:8px;">
+    <div class="section-head">
+      <div class="sh-icon">📚</div>
+      C. Materi Singkat
+    </div>
+    <div class="section-body">
+      <p class="materi-text">
+        Dunia digital adalah lingkungan yang berkaitan dengan penggunaan teknologi dan internet, seperti media sosial, aplikasi pesan, game online, forum digital, YouTube, dan berbagai platform lainnya. Dunia digital memberikan banyak manfaat, namun juga memiliki risiko. Oleh karena itu, setiap pengguna internet harus memiliki <strong>etika digital</strong>, menjaga informasi privat, serta menyaring informasi sebelum membagikannya kepada orang lain.
+      </p>
+      <div class="materi-highlight">
+        <div class="mh-card mh-pos">
+          <div class="mh-title">✅ Dampak Positif</div>
+          <ul>
+            <li>Memudahkan komunikasi</li>
+            <li>Mempercepat pencarian informasi</li>
+            <li>Mendukung pembelajaran</li>
+            <li>Membantu kerja sama</li>
+          </ul>
+        </div>
+        <div class="mh-card mh-neg">
+          <div class="mh-title">⚠️ Dampak Negatif</div>
+          <ul>
+            <li>Kecanduan gawai</li>
+            <li>Penyebaran hoaks</li>
+            <li>Cyberbullying</li>
+            <li>Kebocoran data pribadi</li>
+            <li>Paparan konten negatif</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D. Studi Kasus -->
+  <div class="section sec-orange">
+    <div class="section-head">
+      <div class="sh-icon">📰</div>
+      D. Studi Kasus
+    </div>
+    <div class="section-body">
+      <div class="kasus-box">
+        <div class="kasus-title">📢 "Pesan Libur Sekolah di Grup Kelas"</div>
+        <div class="kasus-character">👦 <span>Tokoh: <strong>Raka</strong> — pengguna aktif media sosial</span></div>
+        <p class="kasus-text">
+          Raka senang menggunakan media sosial dan sering membagikan informasi yang ia temukan ke grup kelas. Suatu hari, ia membagikan pesan tentang kabar libur sekolah mendadak <strong>tanpa memeriksa kebenarannya</strong> terlebih dahulu. Teman-temannya menjadi panik. Sebagian percaya dan sebagian lain menyebarkan pesan itu kembali. Setelah dicek, ternyata informasi tersebut adalah <strong>hoaks</strong>. Akibatnya, suasana kelas menjadi gaduh dan beberapa teman merasa kesal karena tertipu.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">💡 LKPD Informatika — Bijak Hidup di Dunia Digital</div>
+    <div class="page-indicator">Halaman 1 / 2</div>
+    <div class="footer-right">Kerjakan dengan jujur dan teliti</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 2 ═══════════════ -->
+<div class="page">
+
+  <!-- E. Pertanyaan Diskusi -->
+  <div class="section sec-blue" style="margin-bottom:9px;">
+    <div class="section-head">
+      <div class="sh-icon">❓</div>
+      E. Pertanyaan Diskusi
+    </div>
+    <div class="section-body">
+      <div class="question-list">
+
+        <div class="q-item q-v1">
+          <div class="q-header">
+            <div class="q-num">1</div>
+            <span>Apa masalah utama yang terjadi pada kasus tersebut?</span>
+          </div>
+          <div class="q-answer">
+            <div class="answer-label">Jawaban:</div>
+            <div class="answer-lines">
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-item q-v2">
+          <div class="q-header">
+            <div class="q-num">2</div>
+            <span>Sebutkan dua dampak negatif dari tindakan Raka bagi teman-temannya atau lingkungan kelas!</span>
+          </div>
+          <div class="q-answer">
+            <div class="answer-label">Jawaban:</div>
+            <div class="answer-lines">
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-item q-v3">
+          <div class="q-header">
+            <div class="q-num">3</div>
+            <span>Apakah teknologi digital pada kasus tersebut hanya membawa dampak negatif? Jelaskan kemungkinan dampak positifnya jika digunakan dengan benar!</span>
+          </div>
+          <div class="q-answer">
+            <div class="answer-label">Jawaban:</div>
+            <div class="answer-lines">
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-item q-v4">
+          <div class="q-header">
+            <div class="q-num">4</div>
+            <span>Mengapa informasi di internet perlu diperiksa sebelum disampaikan kepada orang lain?</span>
+          </div>
+          <div class="q-answer">
+            <div class="answer-label">Jawaban:</div>
+            <div class="answer-lines">
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-item q-v5">
+          <div class="q-header">
+            <div class="q-num">5</div>
+            <span>Sikap atau solusi apa yang sebaiknya dilakukan Raka agar kejadian serupa tidak terulang?</span>
+          </div>
+          <div class="q-answer">
+            <div class="answer-label">Jawaban:</div>
+            <div class="answer-lines">
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+              <div class="answer-line"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- F. Refleksi Kelompok -->
+  <div class="section sec-yellow">
+    <div class="section-head">
+      <div class="sh-icon">🌟</div>
+      F. Refleksi Kelompok
+    </div>
+    <div class="section-body">
+      <div class="refleksi-list">
+
+        <div class="r-item">
+          <div class="r-q">
+            <div class="r-num">1</div>
+            <span>Apa pelajaran penting yang kalian dapatkan dari kasus tersebut?</span>
+          </div>
+          <div class="r-lines">
+            <div class="r-line"></div>
+            <div class="r-line"></div>
+            <div class="r-line"></div>
+          </div>
+        </div>
+
+        <div class="r-item">
+          <div class="r-q">
+            <div class="r-num">2</div>
+            <span>Apa yang akan kalian lakukan jika menerima informasi yang belum jelas kebenarannya?</span>
+          </div>
+          <div class="r-lines">
+            <div class="r-line"></div>
+            <div class="r-line"></div>
+            <div class="r-line"></div>
+          </div>
+        </div>
+
+        <div class="r-item" style="background:#e8f8ee; border-color:#1e9e4f;">
+          <div class="r-q" style="color: #0d5c28;">
+            <div class="r-num" style="background: var(--green);">3</div>
+            <span>✍️ Tuliskan <strong>satu komitmen kelompok</strong> agar menjadi pengguna internet yang bijak!</span>
+          </div>
+          <div style="background:#fff; border:1.5px dashed var(--green); border-radius:8px; padding:6px 10px; margin-top:4px;">
+            <div style="font-size:7pt; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.7px; margin-bottom:4px;">Komitmen Kami:</div>
+            <div style="display:flex; flex-direction:column; gap:5px;">
+              <div style="border-bottom:1.2px dashed #a8d8b8; height:16px;"></div>
+              <div style="border-bottom:1.2px dashed #a8d8b8; height:16px;"></div>
+            </div>
+            <div style="display:flex; justify-content:flex-end; margin-top:12px; gap:30px;">
+              <div style="text-align:center;">
+                <div style="border-top:1.5px solid #aaa; width:90px; margin-bottom:3px;"></div>
+                <div style="font-size:7pt; color:#666;">Tanda Tangan Ketua</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="border-top:1.5px solid #aaa; width:90px; margin-bottom:3px;"></div>
+                <div style="font-size:7pt; color:#666;">Tanda Tangan Anggota</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips box -->
+  <div style="margin-top:9px; display:flex; gap:7px;">
+    <div style="flex:1; background: linear-gradient(135deg,#e8f2ff,#d6eaff); border-radius:10px; padding:8px 10px; border:1.2px solid #b0ccee;">
+      <div style="font-weight:800; font-size:8pt; color:var(--blue); margin-bottom:4px;">💡 Tips Cek Fakta</div>
+      <div style="font-size:7.5pt; line-height:1.6; color:#334;">
+        ✔ Cek sumber berita resmi<br>
+        ✔ Gunakan situs cekfakta.com<br>
+        ✔ Tanya ke orang yang terpercaya<br>
+        ✔ Jangan buru-buru menyebarkan
+      </div>
+    </div>
+    <div style="flex:1; background: linear-gradient(135deg,#e7faf6,#d4f5ef); border-radius:10px; padding:8px 10px; border:1.2px solid #9dd8cc;">
+      <div style="font-weight:800; font-size:8pt; color:var(--teal); margin-bottom:4px;">🛡️ Etika Digital</div>
+      <div style="font-size:7.5pt; line-height:1.6; color:#334;">
+        ✔ Berpikir sebelum memposting<br>
+        ✔ Hormati privasi orang lain<br>
+        ✔ Gunakan bahasa yang santun<br>
+        ✔ Bertanggung jawab atas konten
+      </div>
+    </div>
+    <div style="flex:1; background: linear-gradient(135deg,#fff8ec,#fff0d6); border-radius:10px; padding:8px 10px; border:1.2px solid #f0cc88;">
+      <div style="font-weight:800; font-size:8pt; color:var(--orange); margin-bottom:4px;">🌐 Ingat Selalu!</div>
+      <div style="font-size:7.5pt; line-height:1.6; color:#334;">
+        ✔ Internet bukan tanpa aturan<br>
+        ✔ Jejak digital tidak terhapus<br>
+        ✔ Bijaklah dalam berbagi info<br>
+        ✔ Jadilah netizen bertanggung jawab
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">💡 LKPD Informatika — Bijak Hidup di Dunia Digital</div>
+    <div class="page-indicator">Halaman 2 / 2</div>
+    <div class="footer-right">Semangat belajar! 🚀</div>
+  </div>
+
+</div>
+
+</body>
+</html>
